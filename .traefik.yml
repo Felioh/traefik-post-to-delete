@@ -1,0 +1,7 @@
+displayName: Convert any POST request to a DELETE
+type: middleware
+import: github.com/Felioh/traefik-post-to-delete
+basePkg: post_to_delete
+summary: 'Converts any POST request to a DELETE'
+testData:
+  putOriginalMethodInHeader: X-Original-Method
