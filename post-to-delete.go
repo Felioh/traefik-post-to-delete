@@ -1,4 +1,4 @@
-package head_to_get
+package post_to_delete
 
 import (
 	"context"
@@ -16,8 +16,8 @@ func CreateConfig() *Config {
 	return &Config{}
 }
 
-// HeadToGetPlugin header
-type HeadToGetPlugin struct {
+// PostToDeletePlugin header
+type PostToDeletePlugin struct {
 	putOriginalMethodInHeader string
 	name                      string
 	next                      http.Handler
@@ -29,7 +29,7 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 		return nil, fmt.Errorf("config can not be nil")
 	}
 
-	plugin := &HeadToGetPlugin{
+	plugin := &PostToDeletePlugin{
 		putOriginalMethodInHeader: config.PutOriginalMethodInHeader,
 		next:                      next,
 		name:                      name,
@@ -38,7 +38,7 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 	return plugin, nil
 }
 
-func (t *HeadToGetPlugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
+func (t *PostToDeletePlugin) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	if req.Method == http.MethodPost {
 		if t.putOriginalMethodInHeader != "" {
 			req.Header.Add(t.putOriginalMethodInHeader, req.Method)
